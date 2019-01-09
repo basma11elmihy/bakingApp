@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <Button
+        android:id="@+id/main_menu_btn"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin = "40dp"
+        tools:text="Recipe Name"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="#000"
+        />
+</FrameLayout>
