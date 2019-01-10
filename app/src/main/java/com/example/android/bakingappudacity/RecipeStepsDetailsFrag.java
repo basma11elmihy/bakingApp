@@ -75,17 +75,17 @@ public class RecipeStepsDetailsFrag extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_recipe_steps_details, container, false);
         if (savedInstanceState != null){
-            steps = savedInstanceState.getParcelable("step_extra");
+            steps = savedInstanceState.getParcelable(getContext().getString(R.string.step_extra));
         }
-        if (getActivity().getIntent().getParcelableExtra("step_extra") != null) {
-            steps = getActivity().getIntent().getParcelableExtra("step_extra");
+        if (getActivity().getIntent().getParcelableExtra(getContext().getString(R.string.step_extra)) != null) {
+            steps = getActivity().getIntent().getParcelableExtra(getContext().getString(R.string.step_extra));
         }
-        mData = getActivity().getIntent().getParcelableArrayListExtra("steps_list");
+        mData = getActivity().getIntent().getParcelableArrayListExtra(getContext().getString(R.string.steps_list));
         mPlayerView = view.findViewById(R.id.exo_player);
         videoUri = Uri.parse(steps.getVideoURL());
         video = videoUri.toString();
         imageUrl = steps.getThumbnailURL();
-        name = getActivity().getIntent().getStringExtra("name");
+        name = getActivity().getIntent().getStringExtra(getContext().getString(R.string.name));
         DesignLayout(view);
         return view;
     }
@@ -93,7 +93,7 @@ public class RecipeStepsDetailsFrag extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("step_extra",steps);
+        outState.putParcelable(getContext().getString(R.string.step_extra),steps);
     }
 
     private void DesignLayout(View view) {
@@ -132,9 +132,9 @@ public class RecipeStepsDetailsFrag extends Fragment {
                         Step Nextstep = mData.get(id + 1);
                         Intent intent = new Intent(getContext(), RecipeStepsDetails.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("name",name);
-                        intent.putExtra("step_extra", Nextstep);
-                        intent.putParcelableArrayListExtra("steps_list", mData);
+                        intent.putExtra(getContext().getString(R.string.name),name);
+                        intent.putExtra(getContext().getString(R.string.step_extra), Nextstep);
+                        intent.putParcelableArrayListExtra(getContext().getString(R.string.steps_list), mData);
                         getContext().startActivity(intent);
 
                     }
@@ -150,9 +150,9 @@ public class RecipeStepsDetailsFrag extends Fragment {
                         Step Prevstep = mData.get(id - 1);
                         Intent intent = new Intent(getContext(), RecipeStepsDetails.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("step_extra", Prevstep);
-                        intent.putExtra("name",name);
-                        intent.putParcelableArrayListExtra("steps_list", mData);
+                        intent.putExtra(getContext().getString(R.string.step_extra), Prevstep);
+                        intent.putExtra(getContext().getString(R.string.name),name);
+                        intent.putParcelableArrayListExtra(getContext().getString(R.string.steps_list), mData);
                         getContext().startActivity(intent);
                     }
                 });

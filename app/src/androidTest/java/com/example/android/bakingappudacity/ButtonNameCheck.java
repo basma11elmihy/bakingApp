@@ -51,7 +51,7 @@ public class ButtonNameCheck {
         onView(ViewMatchers.withId(R.id.recipes_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
         Espresso.pressBack();
-        onView(withText("Brownies")).check(matches(isDisplayed()));
+        onView(withText(R.string.Brownies)).check(matches(isDisplayed()));
     }
     @After
     public void unregisterIdlingResource() {

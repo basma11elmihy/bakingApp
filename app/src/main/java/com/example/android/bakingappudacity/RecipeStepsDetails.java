@@ -13,7 +13,7 @@ public class RecipeStepsDetails extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.stepsContainer,new RecipeStepsDetailsFrag())
                 .commit();
-        String name = getIntent().getStringExtra("name");
+        String name = getIntent().getStringExtra(this.getString(R.string.name));
         getSupportActionBar().setTitle(name);
     }
 

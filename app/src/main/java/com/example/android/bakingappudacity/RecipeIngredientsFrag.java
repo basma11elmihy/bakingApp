@@ -30,7 +30,7 @@ public class RecipeIngredientsFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
-        ArrayList<Ingredient> ings = getActivity().getIntent().getParcelableArrayListExtra("ings");
+        ArrayList<Ingredient> ings = getActivity().getIntent().getParcelableArrayListExtra(getContext().getString(R.string.ings));
 
         mRecyclerView = view.findViewById(R.id.ingRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);

@@ -36,26 +36,26 @@ public class GridIntentService extends IntentService {
     public static void InflateGrid(Context context){
         Intent intent = new Intent(context,GridIntentService.class);
         con=context;
-        intent.setAction("InflateGrid");
+        intent.setAction(con.getString(R.string.InflateGrid));
         context.startService(intent);
     }
 
     public static void InflateList(Context context, int viewIndex) {
         Intent intent = new Intent(context,GridIntentService.class);
         con = context;
-        intent.setAction("InflateList");
-        intent.putExtra("viewIndex",viewIndex);
+        intent.setAction(con.getString(R.string.InflateList));
+        intent.putExtra(con.getString(R.string.viewIndex),viewIndex);
         context.startService(intent);
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if(intent != null) {
-            if (intent.getAction().equals("InflateGrid")) {
+            if (intent.getAction().equals(con.getString(R.string.InflateGrid))) {
                 getGridData();
             }
-            if (intent.getAction().equals("InflateList")){
-                int index = intent.getIntExtra("viewIndex",0);
+            if (intent.getAction().equals(con.getString(R.string.InflateList))){
+                int index = intent.getIntExtra(con.getString(R.string.viewIndex),0);
                 getListData(index);
             }
         }

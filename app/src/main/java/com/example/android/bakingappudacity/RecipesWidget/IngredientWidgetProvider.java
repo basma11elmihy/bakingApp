@@ -32,7 +32,7 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
         if (viewIndex >= 0) {
             Intent ListIntent = new Intent(context, ListWidgetService.class);
             String ListDumb = new Gson().toJson(ings);
-            ListIntent.setData(Uri.fromParts("scheme",ListDumb,null));
+            ListIntent.setData(Uri.fromParts(context.getString(R.string.scheme),ListDumb,null));
             views.setRemoteAdapter(R.id.widget_list_view, ListIntent);
             viewIndex = -1;
         }
@@ -48,11 +48,11 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_ings_layout);
         Intent intent = new Intent(context,GridWidgetService.class);
         String dumb = new Gson().toJson(mData);
-        intent.setData(Uri.fromParts("scheme",dumb,null));
+        intent.setData(Uri.fromParts(context.getString(R.string.scheme),dumb,null));
         views.setRemoteAdapter(R.id.widget_grid_view,intent);
 
         Intent appIntent = new Intent(context, IngredientWidgetProvider.class);
-        appIntent.setAction("action");
+        appIntent.setAction(context.getString(R.string.action));
         PendingIntent appPendingIntent = PendingIntent.getBroadcast(context, 0,
                 appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_grid_view, appPendingIntent);
@@ -64,10 +64,9 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if(intent.getAction().equals("action")){
+        if(intent.getAction().equals(context.getString(R.string.action))){
 
-            viewIndex = intent.getIntExtra("extra_id_grid",0);
-            Toast.makeText(context,"position "+viewIndex,Toast.LENGTH_LONG).show();
+            viewIndex = intent.getIntExtra(context.getString(R.string.extra_id_grid),0);
             GridIntentService.InflateList(context,viewIndex);
         }
         super.onReceive(context, intent);

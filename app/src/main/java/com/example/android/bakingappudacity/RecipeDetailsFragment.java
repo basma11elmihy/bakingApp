@@ -57,12 +57,12 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
         });
 
 
-        RecipesModel model = getActivity().getIntent().getParcelableExtra("parcel_data");
+        RecipesModel model = getActivity().getIntent().getParcelableExtra(getContext().getString(R.string.parcel_data));
         name = model.getName();
 
 
-        steps = getActivity().getIntent().getParcelableArrayListExtra("steps");
-        final ArrayList<Ingredient> ings = getActivity().getIntent().getParcelableArrayListExtra("ings");
+        steps = getActivity().getIntent().getParcelableArrayListExtra(getContext().getString(R.string.steps));
+        final ArrayList<Ingredient> ings = getActivity().getIntent().getParcelableArrayListExtra(getContext().getString(R.string.ings));
         adapter = new DetailsAdapter(getContext(),steps,this);
         recyclerView.setAdapter(adapter);
         StepButton = rootview.findViewById(R.id.StepDescriptionBtn);
@@ -75,8 +75,8 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), RecipeIngredientsDetails.class);
-                    intent.putParcelableArrayListExtra("ings", ings);
-                    intent.putExtra("name",name);
+                    intent.putParcelableArrayListExtra(getContext().getString(R.string.ings), ings);
+                    intent.putExtra(getContext().getString(R.string.name),name);
                     startActivity(intent);
                 }
             });
@@ -109,9 +109,9 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
         else {
 
             Intent intent = new Intent(getContext(),RecipeStepsDetails.class);
-            intent.putExtra("step_extra",currentStep);
-            intent.putExtra("name",name);
-            intent.putParcelableArrayListExtra("steps_list",steps);
+            intent.putExtra(getContext().getString(R.string.step_extra),currentStep);
+            intent.putExtra(getContext().getString(R.string.name),name);
+            intent.putParcelableArrayListExtra(getContext().getString(R.string.steps_list),steps);
             startActivity(intent);
         }
     }

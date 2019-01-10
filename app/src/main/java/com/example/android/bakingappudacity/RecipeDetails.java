@@ -15,7 +15,7 @@ public class RecipeDetails extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.DetailsContainer,new RecipeDetailsFragment())
                 .commit();
-        RecipesModel model = getIntent().getParcelableExtra("parcel_data");
+        RecipesModel model = getIntent().getParcelableExtra(this.getString(R.string.parcel_data));
         String name = model.getName();
         getSupportActionBar().setTitle(name);
     }

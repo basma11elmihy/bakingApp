@@ -52,13 +52,12 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
         mainMenuViewHolder.mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"GO",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context,RecipeDetails.class);
                 ArrayList<Step> step = model.getSteps();
                 ArrayList<Ingredient> ingredients = model.getIngredients();
-                intent.putExtra("parcel_data",model);
-                intent.putParcelableArrayListExtra("steps",step);
-                intent.putParcelableArrayListExtra("ings",ingredients);
+                intent.putExtra(context.getString(R.string.parcel_data),model);
+                intent.putParcelableArrayListExtra(context.getString(R.string.steps),step);
+                intent.putParcelableArrayListExtra(context.getString(R.string.ings),ingredients);
                 context.startActivity(intent);
             }
         });

@@ -16,7 +16,7 @@ public class RecipeIngredientsDetails extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.IngredientsContainer,new RecipeIngredientsFrag())
                 .commit();
-        String name = getIntent().getStringExtra("name");
+        String name = getIntent().getStringExtra(this.getString(R.string.name));
         getSupportActionBar().setTitle(name);
     }
 }

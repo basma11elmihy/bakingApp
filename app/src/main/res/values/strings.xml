@@ -5,4 +5,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="parcel_data">parcel_data</string>
+    <string name="steps">steps</string>
+    <string name="ings">ings</string>
+    <string name="InflateGrid">InflateGrid</string>
+    <string name="InflateList">InflateList</string>
+    <string name="viewIndex">viewIndex</string>
+    <string name="extra_id_grid">extra_id_grid</string>
+    <string name="scheme">scheme</string>
+    <string name="action">action</string>
+    <string name="name">name</string>
+    <string name="step_extra">step_extra</string>
+    <string name="steps_list">steps_list</string>
+    <string name="Nutella_Pie">Nutella Pie</string>
+    <string name="Brownies">Brownies</string>
+    <string name="Yellow_Cake">Yellow Cake</string>
+    <string name="Cheesecake">Cheesecake</string>
+
 </resources>
