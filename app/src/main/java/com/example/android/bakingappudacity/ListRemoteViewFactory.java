@@ -36,23 +36,14 @@ import java.util.List;
 //https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/
 public class ListRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private ArrayList<RecipesModel> mData;
-    private static final String url = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
     private Context context;
-    public RecipesModel model;
-    public int currentIndex;
-    RecipesRepository recipesRepository;
-    private LiveData<List<RecipesModel>> recipemodel;
-    ArrayList<Ingredient> ings;
-    private Intent intent;
+    private ArrayList<Ingredient> ings;
+    private String stringData ;
 
 
     public ListRemoteViewFactory(Context context, Intent intent) {
-      //  this.recipesRepository = new RecipesRepository(application);
         this.context = context;
-       // recipemodel = recipesRepository.getmAllRecipes();
-       // mData = (ArrayList<RecipesModel>) recipemodel.getValue();
-        this.intent = intent;
+        this.stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
 
     }
 
@@ -63,38 +54,14 @@ public class ListRemoteViewFactory implements RemoteViewsService.RemoteViewsFact
 
     @Override
     public  void onDataSetChanged() {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        currentIndex = sharedPreferences.getInt("extra_id",1);
-        currentIndex = intent.getIntExtra("extra_id",0);
-        Log.v("current","current "+currentIndex);
-            StringRequest request = new StringRequest(url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Toast.makeText(context, "ListOK", Toast.LENGTH_LONG).show();
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-                    Gson gson = gsonBuilder.create();
-                    RecipesModel[] recipesModels = gson.fromJson(response, RecipesModel[].class);
-                    mData = new ArrayList<>(Arrays.asList(recipesModels));
-                    model = mData.get(currentIndex-1);
-                    ings = model.getIngredients();
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-
-                }
-            });
-            RequestQueue queue = Volley.newRequestQueue(context);
-            queue.add(request);
-
-
-//         recipemodel = recipesRepository.getmAllRecipes();
-//         mData = (ArrayList<RecipesModel>) recipemodel.getValue();
-//        model = mData.get(currentIndex-1);
-//                ings = model.getIngredients();
+        if (stringData != null) {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            Ingredient[] recipesModels = gson.fromJson(stringData, Ingredient[].class);
+            if(recipesModels != null) {
+                ings = new ArrayList<>(Arrays.asList(recipesModels));
+            }
+        }
 
 
     }
@@ -115,7 +82,7 @@ public class ListRemoteViewFactory implements RemoteViewsService.RemoteViewsFact
 
     @Override
     public RemoteViews getViewAt(int position) {
-        if (mData == null || mData.size() == 0) return null;
+        if (ings == null || ings.size() == 0) return null;
         RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_list_item);
 
 

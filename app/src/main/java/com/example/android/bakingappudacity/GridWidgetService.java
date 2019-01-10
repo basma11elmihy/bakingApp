@@ -7,7 +7,7 @@ public class GridWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
 
-        return new GridRemoteViewFactory(this.getApplicationContext());
+        return new GridRemoteViewFactory(this.getApplicationContext(),intent);
 
     }
 

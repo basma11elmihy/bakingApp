@@ -7,76 +7,57 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.example.android.bakingappudacity.RecipesModelJson.Ingredient;
+import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
 /**
  * Implementation of App Widget functionality.
  */
 public class IngredientWidgetProvider extends AppWidgetProvider {
-    public static int viewIndex = 0;
+    public static int viewIndex = -1;
+
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+                                int appWidgetId, ArrayList<RecipesModel> mData,ArrayList<Ingredient> ings) {
 
-        Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
-        int Height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-        RemoteViews views;
+        RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_ings_layout);
 
-        if (Height<300) {
-            views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget_provider);
-            Intent intent = new Intent(context,MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-            views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent);
+        if (viewIndex >= 0) {
+            Intent ListIntent = new Intent(context, ListWidgetService.class);
+            String ListDumb = new Gson().toJson(ings);
+            ListIntent.setData(Uri.fromParts("scheme",ListDumb,null));
+            views.setRemoteAdapter(R.id.widget_list_view, ListIntent);
+            viewIndex = -1;
         }
-        else{
-            views = getIngredientsList(context,appWidgetId);
-
+        else {
+            views = getIngredientsList(context, mData);
         }
-       appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_list_view);
-      //  appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_grid_view);
-        // Instruct the widget manager to update the widget
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
 
     }
 
-    private static RemoteViews getIngredientsList(Context context,int appWidgetId) {
-//        RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_ings_layout);
-//        Intent intent = new Intent(context,ListWidgetService.class);
-//        views.setRemoteAdapter(R.id.widget_list_view,intent);
-//        context.startService(intent);
-//        return views;
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+    private static RemoteViews getIngredientsList(Context context,ArrayList<RecipesModel> mData) {
         RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget_ings_layout);
         Intent intent = new Intent(context,GridWidgetService.class);
+        String dumb = new Gson().toJson(mData);
+        intent.setData(Uri.fromParts("scheme",dumb,null));
         views.setRemoteAdapter(R.id.widget_grid_view,intent);
-    //    context.startService(intent);
-//        Intent ListIntent = new Intent(context,ListWidgetService.class);
-//        views.setRemoteAdapter(R.id.widget_list_view,ListIntent);
-//        context.startService(ListIntent);
 
-
-            if (viewIndex != 0) {
-                appWidgetManager.updateAppWidget(appWidgetId,views);
-                Intent ListIntent = new Intent(context,ListWidgetService.class);
-                ListIntent.putExtra("extra_id", viewIndex);
-                views.setRemoteAdapter(R.id.widget_list_view, ListIntent);
-
-                //context.startService(ListIntent);
-//                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, IngredientWidgetProvider.class));
-//                update(context, appWidgetManager,appWidgetIds);
-
-            }
         Intent appIntent = new Intent(context, IngredientWidgetProvider.class);
-        appIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        appIntent.setAction("action");
         PendingIntent appPendingIntent = PendingIntent.getBroadcast(context, 0,
                 appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_grid_view, appPendingIntent);
-
-
 
         return views;
 
@@ -84,31 +65,28 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)){
+
+        if(intent.getAction().equals("action")){
+
             viewIndex = intent.getIntExtra("extra_id_grid",0);
-            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
             Toast.makeText(context,"position "+viewIndex,Toast.LENGTH_LONG).show();
-
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-            updateAppWidget(context,appWidgetManager,appWidgetId);
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_list_view);
-
+            GridIntentService.InflateList(context,viewIndex);
         }
         super.onReceive(context, intent);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        update(context,appWidgetManager,appWidgetIds);
-    }
-    public static void update(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds){
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+            GridIntentService.InflateGrid(context);
+        }
 
-          //  Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
-         //   onAppWidgetOptionsChanged(context,appWidgetManager,appWidgetId,options);
+    }
+
+    public static void update(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, ArrayList<RecipesModel> mData, ArrayList<Ingredient> ings){
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId,mData,ings);
+
         }
     }
 
@@ -121,19 +99,5 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
-
-    @Override
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
-
-//      appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_list_view);
-//       appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_grid_view);
-        updateAppWidget(context,appWidgetManager,appWidgetId);
-
-//         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, IngredientWidgetProvider.class));
-//            update(context, appWidgetManager,appWidgetIds);
-        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
-    }
-
-
 }
 

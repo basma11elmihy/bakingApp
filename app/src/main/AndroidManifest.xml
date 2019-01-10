@@ -27,6 +27,8 @@
             android:name=".RecipeStepsDetails"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
 
+        <service android:name="com.example.android.bakingappudacity.GridIntentService"/>
+
         <service
             android:name="com.example.android.bakingappudacity.ListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
