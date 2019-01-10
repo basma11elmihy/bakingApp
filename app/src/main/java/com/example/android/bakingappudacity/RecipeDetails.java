@@ -3,6 +3,7 @@ package com.example.android.bakingappudacity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.example.android.bakingappudacity.RecipesModelJson.Step;
 
 public class RecipeDetails extends AppCompatActivity {
@@ -12,7 +13,10 @@ public class RecipeDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.DetailsContainer,new RecipeDetailsFragment())
+                .replace(R.id.DetailsContainer,new RecipeDetailsFragment())
                 .commit();
+        RecipesModel model = getIntent().getParcelableExtra("parcel_data");
+        String name = model.getName();
+        getSupportActionBar().setTitle(name);
     }
 }

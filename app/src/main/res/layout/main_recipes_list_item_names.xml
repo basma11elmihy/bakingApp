@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
     android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <Button
         android:id="@+id/main_menu_btn"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin = "40dp"
+        android:layout_height="300dp"
         tools:text="Recipe Name"
+        android:textAlignment="gravity"
         android:textStyle="bold"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="#000"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="#FFF"
         />
-</FrameLayout>
+
+</RelativeLayout>

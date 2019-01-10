@@ -31,6 +31,7 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
     private Button StepButton;
     private boolean IsmasterDetail;
     private ArrayList<Step> steps;
+    private String name;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor
@@ -57,6 +58,8 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
 
 
         RecipesModel model = getActivity().getIntent().getParcelableExtra("parcel_data");
+        name = model.getName();
+
 
         steps = getActivity().getIntent().getParcelableArrayListExtra("steps");
         final ArrayList<Ingredient> ings = getActivity().getIntent().getParcelableArrayListExtra("ings");
@@ -73,6 +76,7 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), RecipeIngredientsDetails.class);
                     intent.putParcelableArrayListExtra("ings", ings);
+                    intent.putExtra("name",name);
                     startActivity(intent);
                 }
             });
@@ -106,6 +110,7 @@ public class RecipeDetailsFragment extends Fragment implements DetailsAdapter.My
 
             Intent intent = new Intent(getContext(),RecipeStepsDetails.class);
             intent.putExtra("step_extra",currentStep);
+            intent.putExtra("name",name);
             intent.putParcelableArrayListExtra("steps_list",steps);
             startActivity(intent);
         }

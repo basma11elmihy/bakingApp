@@ -58,6 +58,7 @@ public class RecipeStepsDetailsFrag extends Fragment {
     private String video;
     private View view;
     private boolean notMasterDetail;
+    private String name;
 
 
     @SuppressLint("ValidFragment")
@@ -84,6 +85,7 @@ public class RecipeStepsDetailsFrag extends Fragment {
         videoUri = Uri.parse(steps.getVideoURL());
         video = videoUri.toString();
         imageUrl = steps.getThumbnailURL();
+        name = getActivity().getIntent().getStringExtra("name");
         DesignLayout(view);
         return view;
     }
@@ -130,6 +132,7 @@ public class RecipeStepsDetailsFrag extends Fragment {
                         Step Nextstep = mData.get(id + 1);
                         Intent intent = new Intent(getContext(), RecipeStepsDetails.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("name",name);
                         intent.putExtra("step_extra", Nextstep);
                         intent.putParcelableArrayListExtra("steps_list", mData);
                         getContext().startActivity(intent);
@@ -148,6 +151,7 @@ public class RecipeStepsDetailsFrag extends Fragment {
                         Intent intent = new Intent(getContext(), RecipeStepsDetails.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("step_extra", Prevstep);
+                        intent.putExtra("name",name);
                         intent.putParcelableArrayListExtra("steps_list", mData);
                         getContext().startActivity(intent);
                     }

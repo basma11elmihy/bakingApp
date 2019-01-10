@@ -3,6 +3,10 @@ package com.example.android.bakingappudacity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.android.bakingappudacity.RecipesModelJson.Ingredient;
+
+import java.util.ArrayList;
+
 public class RecipeIngredientsDetails extends AppCompatActivity {
 
     @Override
@@ -10,7 +14,9 @@ public class RecipeIngredientsDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_ingredients);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.IngredientsContainer,new RecipeIngredientsFrag())
+                .replace(R.id.IngredientsContainer,new RecipeIngredientsFrag())
                 .commit();
+        String name = getIntent().getStringExtra("name");
+        getSupportActionBar().setTitle(name);
     }
 }

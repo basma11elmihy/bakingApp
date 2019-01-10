@@ -11,8 +11,10 @@ public class RecipeStepsDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps_details);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.stepsContainer,new RecipeStepsDetailsFrag())
+                .replace(R.id.stepsContainer,new RecipeStepsDetailsFrag())
                 .commit();
+        String name = getIntent().getStringExtra("name");
+        getSupportActionBar().setTitle(name);
     }
 
 
