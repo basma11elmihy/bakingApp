@@ -1,4 +1,4 @@
-package com.example.android.bakingappudacity;
+package com.example.android.bakingappudacity.RecipesWidget;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.android.bakingappudacity.Adapters.MainMenuAdapter;
 import com.example.android.bakingappudacity.Database.RecipesRepository;
 import com.example.android.bakingappudacity.Database.RecipesViewModel;
+import com.example.android.bakingappudacity.R;
 import com.example.android.bakingappudacity.RecipesModelJson.Ingredient;
 import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.google.gson.Gson;

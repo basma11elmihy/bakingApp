@@ -39,4 +39,18 @@ dependencies {
 // Lifecycle components
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+//    // Testing-only dependencies
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
+    androidTestImplementation 'com.android.support:support-annotations:25.1.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+//   androidTestImplementation'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    //to handle recycler view actions in testing
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
 }

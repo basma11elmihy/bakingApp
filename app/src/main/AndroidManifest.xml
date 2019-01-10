@@ -27,16 +27,16 @@
             android:name=".RecipeStepsDetails"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
 
-        <service android:name="com.example.android.bakingappudacity.GridIntentService"/>
+        <service android:name="com.example.android.bakingappudacity.RecipesWidget.GridIntentService"/>
 
         <service
-            android:name="com.example.android.bakingappudacity.ListWidgetService"
+            android:name="com.example.android.bakingappudacity.RecipesWidget.ListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name="com.example.android.bakingappudacity.GridWidgetService"
+        <service android:name="com.example.android.bakingappudacity.RecipesWidget.GridWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".IngredientWidgetProvider">
+        <receiver android:name=".RecipesWidget.IngredientWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 

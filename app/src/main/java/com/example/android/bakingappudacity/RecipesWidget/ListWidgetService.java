@@ -1,8 +1,6 @@
-package com.example.android.bakingappudacity;
+package com.example.android.bakingappudacity.RecipesWidget;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViewsService;
 
 public class ListWidgetService extends RemoteViewsService {

@@ -1,18 +1,15 @@
-package com.example.android.bakingappudacity;
+package com.example.android.bakingappudacity.RecipesWidget;
 
-import android.app.Application;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.example.android.bakingappudacity.R;
 import com.example.android.bakingappudacity.RecipesModelJson.Ingredient;
 import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.google.gson.Gson;
@@ -22,6 +19,7 @@ import java.util.ArrayList;
 /**
  * Implementation of App Widget functionality.
  */
+//https://stackoverflow.com/questions/46400576/remoteviewfactory-ondatasetchanged-only-called-once-per-notifyappwidgetviewdat
 public class IngredientWidgetProvider extends AppWidgetProvider {
     public static int viewIndex = -1;
 

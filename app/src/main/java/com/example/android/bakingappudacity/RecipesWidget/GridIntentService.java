@@ -1,20 +1,19 @@
-package com.example.android.bakingappudacity;
+package com.example.android.bakingappudacity.RecipesWidget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.bakingappudacity.R;
 import com.example.android.bakingappudacity.RecipesModelJson.Ingredient;
 import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.google.gson.Gson;

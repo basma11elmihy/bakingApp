@@ -1,4 +1,4 @@
-package com.example.android.bakingappudacity;
+package com.example.android.bakingappudacity.RecipesWidget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.bakingappudacity.R;
 import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
