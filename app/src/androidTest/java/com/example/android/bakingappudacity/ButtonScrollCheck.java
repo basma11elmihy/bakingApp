@@ -34,7 +34,6 @@ public class ButtonScrollCheck {
     public void setup() {
         mIdlingResource =  mActivity.getActivity().getIdlingResource();
         Espresso.registerIdlingResources(mIdlingResource);
-
     }
     @Test
     public void scrollTo_button(){
