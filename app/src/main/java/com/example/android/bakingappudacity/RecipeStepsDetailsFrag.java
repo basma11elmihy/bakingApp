@@ -59,6 +59,11 @@ public class RecipeStepsDetailsFrag extends Fragment {
     private View view;
     private boolean notMasterDetail;
     private String name;
+    private long playerPosition;
+    private boolean playerState;
+    private static final String PLAYER_POSITION = "PLAYER_POSITION";
+    private static final String PLAYER_STATE = "STATE";
+
 
 
     @SuppressLint("ValidFragment")
@@ -76,6 +81,8 @@ public class RecipeStepsDetailsFrag extends Fragment {
         view = inflater.inflate(R.layout.fragment_recipe_steps_details, container, false);
         if (savedInstanceState != null){
             steps = savedInstanceState.getParcelable(getContext().getString(R.string.step_extra));
+            playerPosition = savedInstanceState.getLong(PLAYER_POSITION);
+            playerState = savedInstanceState.getBoolean(PLAYER_STATE);
         }
         if (getActivity().getIntent().getParcelableExtra(getContext().getString(R.string.step_extra)) != null) {
             steps = getActivity().getIntent().getParcelableExtra(getContext().getString(R.string.step_extra));
@@ -86,16 +93,53 @@ public class RecipeStepsDetailsFrag extends Fragment {
         video = videoUri.toString();
         imageUrl = steps.getThumbnailURL();
         name = getActivity().getIntent().getStringExtra(getContext().getString(R.string.name));
-        DesignLayout(view);
+
         return view;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        playerPosition = mPlayer.getCurrentPosition();
+        playerState = mPlayer.getPlayWhenReady();
         outState.putParcelable(getContext().getString(R.string.step_extra),steps);
+        outState.putLong(PLAYER_POSITION,playerPosition);
+        outState.putBoolean(PLAYER_STATE,playerState);
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23 || mPlayer == null){
+            DesignLayout(view);
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || mPlayer == null)) {
+            DesignLayout(view);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
     private void DesignLayout(View view) {
         //this is a way to handle a mistake in Udacity's Json response where they accidentally
         //switched the video url with the thumbnail url

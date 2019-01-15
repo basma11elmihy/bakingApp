@@ -20,6 +20,7 @@ import com.example.android.bakingappudacity.RecipesModelJson.RecipesModel;
 import com.example.android.bakingappudacity.RecipesModelJson.Step;
 import com.example.android.bakingappudacity.Utils;
 import com.google.android.exoplayer2.util.Util;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 

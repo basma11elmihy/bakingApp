@@ -44,6 +44,7 @@ public class ButtonNameCheck {
     public void setup() {
         mIdlingResource =  mActivity.getActivity().getIdlingResource();
         Espresso.registerIdlingResources(mIdlingResource);
+
     }
 
     @Test
